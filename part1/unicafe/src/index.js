@@ -27,8 +27,9 @@ const Table = ({ data }) => (
 
 const Statistics = ({ data }) => {
   data.sum = Object.values(data).reduce((t, v) => t + v, 0);
-
+  // add up the good - minus the bad and divide it by the total
   let avg = (data.good - data.bad) / data.sum;
+  // good / bad
   let positivityRate = data.good / data.sum;
 
   data.average = isNaN(avg) ? 0 : avg.toFixed(2);

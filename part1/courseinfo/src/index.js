@@ -34,7 +34,7 @@ const App = () => {
     ],
   };
 
-  // reduce will loop through the array - performing the function given and passing the result to the next loop in the array
+  // sum up all the exercises in the array
   const sum = course.data.reduce(
     (partial_sum, a) => partial_sum + a.exercise,
     0

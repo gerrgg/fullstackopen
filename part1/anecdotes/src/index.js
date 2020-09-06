@@ -4,22 +4,24 @@ import "./index.scss";
 
 const App = (props) => {
   const [selected, setSelected] = useState(0);
+  // start each anecdote at 0 votes
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
+  // pick a random index
   const nextHandler = () => {
-    // Generate a random number and get that index from the anecdotes array
     let random = Math.floor(Math.random() * props.anecdotes.length);
     setSelected(random);
   };
 
+  // keep track of which ancedote is being voted for
   const voteHandler = () => {
-    // Generate a random number and get that index from the anecdotes array
     const copy = [...votes];
     copy[selected] += 1;
     setVotes(copy);
   };
 
-  const getHighestVotedIndex = () => votes.indexOf(Math.max(...votes));
+  const getIndexOfHighestVotedAnecdote = () =>
+    votes.indexOf(Math.max(...votes));
 
   return (
     <div>
@@ -29,7 +31,10 @@ const App = (props) => {
       <Button clickHandler={() => nextHandler()} text="Next" />
       <hr />
       <h4>Top voted</h4>
-      <Anecdote className="winner" text={anecdotes[getHighestVotedIndex()]} />
+      <Anecdote
+        className="winner"
+        text={anecdotes[getIndexOfHighestVotedAnecdote()]}
+      />
     </div>
   );
 };
