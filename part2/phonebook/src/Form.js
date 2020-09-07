@@ -5,11 +5,9 @@ const randomGender = () => (Math.random() < 0.5 ? "M" : "F");
 const Form = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [newFilter, setNewFilter] = useState("");
 
   const handleNewName = (e) => setNewName(e.target.value);
   const handleNewNumber = (e) => setNewNumber(e.target.value);
-  const handleNewFilter = (e) => setNewFilter(e.target.value);
 
   const handleNewPerson = (e) => {
     e.preventDefault();
@@ -18,7 +16,6 @@ const Form = ({ persons, setPersons }) => {
       name: newName,
       number: newNumber,
       dateAdded: new Date().toISOString(),
-      gender: randomGender(),
       id: persons.length + 1,
     };
 
