@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import Form from "./Form";
 import Phonebook from "./Phonebook";
 import Filter from "./Filter";
+import Notifications from "./Notifications";
 import personService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
+  const [notificationMessage, setNotification] = useState([]);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => setPersons(initialPersons));
@@ -23,8 +25,9 @@ const App = () => {
               person.id !== id ? person : response.data
             )
           );
+          setNotification(`Person #${id} was deleted`);
         })
-      : alert("we wont delete then");
+      : setNotification(`Deleteing #${id} failed `);
   };
 
   // if theres a flter get the filtered list - otherwise show all
@@ -37,10 +40,15 @@ const App = () => {
 
   return (
     <div>
+      <Notifications message={notificationMessage} />
       <h2>Phonebook</h2>
       <Filter newFilter={newFilter} handleNewFilter={handleNewFilter} />
       <h3>Add a new person</h3>
-      <Form persons={persons} setPersons={setPersons} />
+      <Form
+        persons={persons}
+        setPersons={setPersons}
+        setNotification={setNotification}
+      />
       <h3>Numbers</h3>
       <Phonebook peopleToShow={peopleToShow} handleDelete={handleDelete} />
     </div>

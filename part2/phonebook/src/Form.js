@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import personService from "./services/persons";
 
-const Form = ({ persons, setPersons }) => {
+const Form = ({ persons, setPersons, setNotification }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -15,9 +15,10 @@ const Form = ({ persons, setPersons }) => {
         setPersons(
           persons.map((person) => (person.id !== id ? person : updatedPerson))
         );
+        setNotification(`${newPerson.name} updated`);
       })
       .catch((error) => {
-        console.log(`updatingfg person failed`, error);
+        setNotification(`updating ${newPerson.name} failed`);
       });
   };
 
@@ -39,9 +40,12 @@ const Form = ({ persons, setPersons }) => {
       ? handleUpdate(duplicates[0].id, newPerson)
       : personService
           .create(newPerson)
-          .then((createdPerson) => setPersons(persons.concat(createdPerson)))
+          .then((createdPerson) => {
+            setPersons(persons.concat(createdPerson));
+            setNotification(`${newPerson.name} created!`);
+          })
           .catch((error) => {
-            console.log("creating person failed", error);
+            setNotification(`created ${newPerson.name} failed`);
           });
 
     // clear fields

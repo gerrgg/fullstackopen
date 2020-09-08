@@ -2,7 +2,7 @@ import React from "react";
 
 const Person = ({ person, handleDelete }) => {
   return (
-    <p>
+    <p className="person">
       {person.name} - {person.number} -{" "}
       {<button onClick={() => handleDelete(person.id)}>Delete</button>}
     </p>
