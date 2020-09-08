@@ -23,6 +23,8 @@ const App = () => {
       )
     : countries;
 
+  console.log(countriesToShow);
+
   return (
     <div>
       <h1>Countries</h1>
@@ -31,7 +33,7 @@ const App = () => {
         <Filter filter={filter} setFilter={setFilter} />
       </p>
       <h4>Results</h4>
-      {countriesToShow.length < 10 ? (
+      {countriesToShow.length > 0 && countriesToShow.length < 10 ? (
         <Countries countries={countriesToShow} />
       ) : (
         <Error message="Too many results, please narrow" />

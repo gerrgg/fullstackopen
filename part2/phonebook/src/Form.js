@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-const randomGender = () => (Math.random() < 0.5 ? "M" : "F");
+import personService from "./services/persons";
 
 const Form = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
@@ -9,6 +8,19 @@ const Form = ({ persons, setPersons }) => {
   const handleNewName = (e) => setNewName(e.target.value);
   const handleNewNumber = (e) => setNewNumber(e.target.value);
 
+  const handleUpdate = (id, newPerson) => {
+    personService
+      .update(id, newPerson)
+      .then((updatedPerson) => {
+        setPersons(
+          persons.map((person) => (person.id !== id ? person : updatedPerson))
+        );
+      })
+      .catch((error) => {
+        console.log(`updatingfg person failed`, error);
+      });
+  };
+
   const handleNewPerson = (e) => {
     e.preventDefault();
 
@@ -16,16 +28,21 @@ const Form = ({ persons, setPersons }) => {
       name: newName,
       number: newNumber,
       dateAdded: new Date().toISOString(),
-      id: persons.length + 1,
     };
 
     // if the filtered array is not 0 - there is a duplicate
-    const isDupe =
-      persons.filter((person) => person.name === newName).length !== 0;
+    const duplicates = persons.filter(
+      (person) => person.name.toLowerCase() === newName.toLowerCase()
+    );
 
-    isDupe
-      ? alert(`${newName} already exists`)
-      : setPersons(persons.concat(newPerson));
+    duplicates.length !== 0
+      ? handleUpdate(duplicates[0].id, newPerson)
+      : personService
+          .create(newPerson)
+          .then((createdPerson) => setPersons(persons.concat(createdPerson)))
+          .catch((error) => {
+            console.log("creating person failed", error);
+          });
 
     // clear fields
     setNewName("");

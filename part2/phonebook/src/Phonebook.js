@@ -1,16 +1,19 @@
 import React from "react";
 
-const Person = ({ person }) => {
+const Person = ({ person, handleDelete }) => {
   return (
     <p>
-      {person.name} - {person.number}
+      {person.name} - {person.number} -{" "}
+      {<button onClick={() => handleDelete(person.id)}>Delete</button>}
     </p>
   );
 };
 
-const Phonebook = ({ peopleToShow }) =>
+const Phonebook = ({ peopleToShow, handleDelete }) =>
   peopleToShow.length > 0 ? (
-    peopleToShow.map((person, i) => <Person key={i} person={person} />)
+    peopleToShow.map((person, i) => (
+      <Person key={i} person={person} handleDelete={handleDelete} />
+    ))
   ) : (
     <p>No match</p>
   );

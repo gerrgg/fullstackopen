@@ -46,14 +46,16 @@ const Flag = ({ src, alt }) => {
 };
 
 const CountryShow = ({ country }) => {
+  console.log(country);
+  let show = country[0];
   return (
     <div className="show">
-      <Header name={country.name} />
-      <Detail header="capital" value={country.capital} />
-      <Detail header="Population" value={country.population} />
-      <Languages languages={country.languages} />
-      <Flag src={country.flag} alt={`${country.name}'s national flag`} />
-      <Weather city={country.capital} />
+      <Header name={show.name} />
+      <Detail header="capital" value={show.capital} />
+      <Detail header="Population" value={show.population} />
+      <Languages languages={show.languages} />
+      <Flag src={show.flag} alt={`${show.name}'s national flag`} />
+      <Weather city={show.capital} />
     </div>
   );
 };
