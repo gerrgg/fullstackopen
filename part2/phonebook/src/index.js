@@ -9,7 +9,7 @@ import "./index.css";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [notificationMessage, setNotification] = useState([]);
+  const [notificationMessage, setNotification] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => setPersons(initialPersons));
