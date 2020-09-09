@@ -5,6 +5,7 @@ import Phonebook from "./Phonebook";
 import Filter from "./Filter";
 import Notifications from "./Notifications";
 import personService from "./services/persons";
+import "./index.css";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
