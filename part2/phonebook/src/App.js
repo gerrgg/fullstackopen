@@ -3,15 +3,8 @@ import Form from "./Form";
 import Phonebook from "./Phonebook";
 import Filter from "./Filter";
 
-const randomGender = () => (Math.random() < 0.5 ? "M" : "F");
-
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", gender: randomGender(), number: "313-330-6066" },
-    { name: "Danny Hellas", gender: randomGender(), number: "456-555-3332" },
-    { name: "Jim Page", gender: randomGender(), number: "133-999-6066" },
-    { name: "Donny Summers", gender: randomGender(), number: "745-330-6066" },
-  ]);
+  const [persons, setPersons] = useState([]);
 
   const [newFilter, setNewFilter] = useState("");
   const handleNewFilter = (e) => setNewFilter(e.target.value);

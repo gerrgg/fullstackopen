@@ -12,7 +12,10 @@ const App = () => {
   const [notificationMessage, setNotification] = useState(null);
 
   useEffect(() => {
-    personService.getAll().then((initialPersons) => setPersons(initialPersons));
+    personService
+      .getAll()
+      .then((initialPersons) => setPersons(initialPersons))
+      .catch((error) => console.log(error.response.data));
   }, []);
 
   const [newFilter, setNewFilter] = useState("");
@@ -20,14 +23,20 @@ const App = () => {
 
   const handleDelete = (id) => {
     window.confirm(`Delete person ${id}?`)
-      ? personService.remove(id).then((response) => {
-          setPersons(
-            persons.filter((person) =>
-              person.id !== id ? person : response.data
-            )
-          );
-          setNotification(`Person #${id} was deleted`);
-        })
+      ? personService
+          .remove(id)
+          .then((response) => {
+            setPersons(
+              persons.filter((person) =>
+                person.id !== id ? person : response.data
+              )
+            );
+            setNotification(`Person #${id} was deleted`);
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            setNotification(error.response.data);
+          })
       : setNotification(`Deleteing #${id} failed `);
   };
 

@@ -18,7 +18,7 @@ const Form = ({ persons, setPersons, setNotification }) => {
         setNotification(`${newPerson.name} updated`);
       })
       .catch((error) => {
-        setNotification(`updating ${newPerson.name} failed`);
+        setNotification(error.response.data);
       });
   };
 
@@ -45,7 +45,7 @@ const Form = ({ persons, setPersons, setNotification }) => {
             setNotification(`${newPerson.name} created!`);
           })
           .catch((error) => {
-            setNotification(`created ${newPerson.name} failed`);
+            setNotification(error.response.data.error);
           });
 
     // clear fields
